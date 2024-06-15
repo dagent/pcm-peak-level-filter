@@ -11,13 +11,14 @@ int usage(char *pname) {
     printf("Read 16-bit stereo channel from STDIN; report peak levels on stdout.\n");
     printf("-s #\tSamples per window (default: %i)\n", samples_per_window );
     printf("-n #\tNormalize to max peak to integer #\n" );
+    printf("-j \tOutput JSON\n" );
     printf("-d \tEnable debugging") ;
     printf("\n");
 }
 
 int parse_options(int argc, char *argv[]) {
     int opt;
-    while ((opt = getopt(argc,argv, "hds:n:")) != -1)
+    while ((opt = getopt(argc,argv, "hjds:n:")) != -1)
     {
         switch (opt) {
             case 's':
@@ -25,6 +26,9 @@ int parse_options(int argc, char *argv[]) {
                 break;
             case 'd':
                 DEBUG_FLAG = true;
+                break;
+            case 'j':
+                JSON_FLAG = true;
                 break;
             case 'n':
                 NORM_FLAG  = true;
@@ -39,6 +43,7 @@ int parse_options(int argc, char *argv[]) {
 
 int report_options(){
     printd("samples per window = %i\n", samples_per_window);
-    ( NORM_FLAG ? printf("normalize value = %i\n", norm_val) : 0 );
+    ( NORM_FLAG ? printd("normalize value = %i\n", norm_val) : 0 );
+    ( JSON_FLAG ? printd("Output JSON\n") : 0 );
 
 }

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Peak Amplitude Meter</title>
+
+    <link rel="stylesheet" href="LED_meter.css" >
+</head>
+<body>
+    <h1>Audio Peak Amplitude Meter</h1>
+
+    <div class="LEDmeters" id="LEDmeters">
+        <div class="LEDmeter" id="LEDmeterL"></div>
+        <div class="LEDmeter" id="LEDmeterR"></div>
+    </div>
+    <script src="LED_meter.js"> </script>
+
+
+    <div>
+        Ch1 : <span id="channel1Value">0.00</span>% <br>
+        Ch2 : <span id="channel2Value">0.00</span>%
+    </div>
+
+
+    <script>
+      const ws = new WebSocket('http://' + document.domain + ':' + location.port);
+      ws.onopen = function() {
+        document.body.style.backgroundColor = '#cfc';
+      };
+      ws.onclose = function() {
+        document.body.style.backgroundColor = null;
+      };
+    </script>
+
+    <script>
+        // Establish a WebSocket connection to the server
+        ch1Val = document.getElementById('channel1Value'); 
+        ch2Val = document.getElementById('channel2Value'); 
+
+        // Update the peak amplitude values when data is received
+        ws.onmessage = function(event) {
+            data = JSON.parse(event.data);
+            
+            // Call the function to update the SVG meter with WebSocket data
+            update_LEDmeterL(data.c1);
+            update_LEDmeterR(data.c2);
+            ch1Val.textContent = data.c1;
+            ch2Val.textContent = data.c2;
+        };
+
+        // Handle any WebSocket connection errors
+       /* ws.onmessage = function(error) {
+            console.error('WebSocket connection error:', error);
+        }; */
+
+    </script>
+</body>
+</html>
+

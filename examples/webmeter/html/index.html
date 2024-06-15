@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bstreamer Audio Tools</title>
+</head>
+
+<body>
+    <iframe src="meter.html" title="peak level meter" width="100%" height="380"></iframe>
+    <script>
+        newport = "18080";
+        newurl = "http://" + window.location.hostname + ":" + newport;
+        var x = document.createElement("IFRAME");
+        x.setAttribute("src", newurl);
+        x.setAttribute("width", "100%");
+        x.setAttribute("height", "600px");
+        document.body.appendChild(x);
+    </script>
+</body>
+

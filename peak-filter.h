@@ -13,12 +13,12 @@
 extern bool DEBUG_FLAG;
 #define printd(...) ( DEBUG_FLAG ? fprintf(stderr, __VA_ARGS__) : 0 )
 
-extern bool PEAKS_FLAG; /* report peaks instead of power */
-extern bool NORM_FLAG; /* report peaks instead of power */
+extern bool NORM_FLAG; /* Print renormalized */
+extern bool JSON_FLAG; /* Print JSON */
 extern __int16_t norm_val;
 
 /* Default audio values */
-#define default_samples_per_window 1024; /*How mandy samples to calculate the power level*/
+#define default_samples_per_window 2048; /*How mandy samples to calculate the power level*/
 extern int samples_per_window ; 
 extern int report_options();
 
